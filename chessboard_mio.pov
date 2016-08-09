@@ -38,49 +38,17 @@ light_source {< 0, 100,  0> color Gray30
 //   jitter
 }
 
-//LINK REFERENCIA: http://www.f-lohmueller.de/pov_tut/x_sam/sam_420e.htm
-#declare Chessboard =
-union{
- box {<-1,-0.1,-1>,<1,0,1>
-      texture{
-        pigment{
-          color rgb<0.5,0,0.5>*0.5}
-             } // end of texture
-    } // end of box ----------------------
- box {<-1.00,0.00,-1.00>,<1.00,0.1,1.00>
-      texture{
-        pigment{ checker
-                 color rgb<1,1,1>
-                 color rgb<0,0,0>
-               } // end pigment
-               scale 0.25
-             } // end of texture
-    } // end of box ----------------------
-} // ---------------- end union Chessbord
-
-// using:
-//------------------------------
-object{ Chessboard
-        translate<0,0,0>
-        scale 2.5
-        rotate<0,0,0>
-      } // ------------------
-//-------------------------------
-
+plane { <0,1,0> // normal vector
+      , 0 // distance from origin
+  pigment {
+    checker color White, color Blue
+  }
+}
 
 // DEFINIMOS LA ESFERA
-sphere {
-<0,1,1>,1.5
-texture{
-// OTRAs FORMAS DE DEFINIR EL COLOR
-pigment {color Yellow}
-//pigment {color red 0.5 green 0.8 blue 0.8}
-//pigment { color rgb<0.5,0.8,0.8> }
-pigment { rgb<0, 0, 1> }
-}
-}                     
+sphere {<-5,1,-4>, 1 texture{pigment{color Black transmit .5 }finish{phong .8}} interior {ior 1.0}}              
 
-
+box {< 1,1,1>, <2,2,2> texture{pigment{color Gray transmit .5 }finish{phong .2}} interior {ior 5.0}}
 
 //DEFINIMOS LA CAJA
 box {
@@ -88,12 +56,7 @@ box {
 <2,2,2>
 
 translate<2,2,4>
-texture{          
-pigment { color rgb<0.5,0.8,0.8> }
-//Escalar la textura
-scale 19        
-
-}
+texture{pigment{color Red filter 1 }finish{phong .8}} interior {ior 1.0}
 //rotate <0,20,0> //Rotar 20 grados respecto a eje Y
 //El sentido de los giros se hacen usando la regla de la mano izquierda
 rotate y*-5 //-15 grados en y
@@ -104,9 +67,8 @@ rotate z*30 //30 grados en z
 //DEFINIMOS EL TOROIDE
 
 torus { 1, 0.6 // radio externo y grosor del toro
-translate 4*y //Trasladar 2 unidades en eje Y
-pigment { color rgb<0.5,0.5,0.5> }  
-
+translate 1*y //Trasladar 2 unidades en eje Y
+texture{pigment{color Blue transmit .5 }finish{phong .8}} interior {ior 1.0}
 translate <clock, 0, -5>
 }                                          
 
