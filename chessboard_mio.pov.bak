@@ -6,12 +6,10 @@ global_settings { assumed_gamma 1.2 }
 #include "shapes.inc"
 #include "metals.inc"
 #include "glass.inc"
-
-#include "woods.inc" 
-
+#include "woods.inc"
 
 camera {
-   location <10,15,10>//location <-5, 10, -15>
+   location <-5,10,-5>//location <-5, 10, -15>
    angle 45 // direction <0, 0,  1.7>
    right x*image_width/image_height
    look_at <0,0,0>
@@ -66,47 +64,3 @@ object{ Chessboard
         rotate<0,0,0>
       } // ------------------
 //-------------------------------
-
-
-// DEFINIMOS LA ESFERA
-sphere {
-<0,1,1>,1.5
-texture{
-// OTRAs FORMAS DE DEFINIR EL COLOR
-pigment {color Yellow}
-//pigment {color red 0.5 green 0.8 blue 0.8}
-//pigment { color rgb<0.5,0.8,0.8> }
-pigment { rgb<0, 0, 1> }
-}
-}                     
-
-
-
-//DEFINIMOS LA CAJA
-box {
-<0,0,0>,
-<2,2,2>
-
-translate<2,2,4>
-texture{          
-pigment { color rgb<0.5,0.8,0.8> }
-//Escalar la textura
-scale 19        
-
-}
-//rotate <0,20,0> //Rotar 20 grados respecto a eje Y
-//El sentido de los giros se hacen usando la regla de la mano izquierda
-rotate y*-5 //-15 grados en y
-rotate z*30 //30 grados en z
-}                       
-
-
-//DEFINIMOS EL TOROIDE
-
-torus { 1, 0.6 // radio externo y grosor del toro
-translate 4*y //Trasladar 2 unidades en eje Y
-pigment { color rgb<0.5,0.5,0.5> }  
-
-translate <clock, 0, -5>
-}                                          
-
