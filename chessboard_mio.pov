@@ -11,10 +11,10 @@ global_settings { assumed_gamma 1.2 }
 
 
 camera {
-   location <10,15,10>//location <-5, 10, -15>
+   location <-5,5,15>//location <-5, 10, -15>
    angle 45 // direction <0, 0,  1.7>
    right x*image_width/image_height
-   look_at <0,0,0>
+   look_at <6,1,0>
 }
 
 // Uncomment the area lights only if you've got lots of time.
@@ -41,26 +41,27 @@ light_source {< 0, 100,  0> color Gray30
 plane { <0,1,0> // normal vector
       , 0 // distance from origin
   pigment {
-    checker color White, color Blue
+    checker color White, color Gray
   }
 }
 
 // DEFINIMOS LA ESFERA
-sphere {<-5,1,-4>, 1 texture{pigment{color Black transmit .5 }finish{phong .8}} interior {ior 1.0}}              
+sphere {< 4,0,-1>, 1 texture{pigment{color Blue}finish{ reflection 0.8 }}
+translate<2,1,6> }           
 
-box {< 1,1,1>, <2,2,2> texture{pigment{color Gray transmit .5 }finish{phong .2}} interior {ior 5.0}}
+box {< 1,1,1>, <2,2,2> texture{pigment{color Yellow transmit .8 }finish{phong .2}} interior {ior 5.0}
+translate<2,0,3>}
 
 //DEFINIMOS LA CAJA
-box {
-<0,0,0>,
-<2,2,2>
 
-translate<2,2,4>
-texture{pigment{color Red filter 1 }finish{phong .8}} interior {ior 1.0}
+prism{ 0.00, 1.00, 4,
+       <-1.00,0.00>, <1.00,0.00>, <0.00,-1.30>, <-1.00,0.00> 
+      rotate<90,0,0>
+
+translate<3,0,6>
+texture{pigment{color Red transmit .3 }finish{metallic .5}} 
 //rotate <0,20,0> //Rotar 20 grados respecto a eje Y
 //El sentido de los giros se hacen usando la regla de la mano izquierda
-rotate y*-5 //-15 grados en y
-rotate z*30 //30 grados en z
 }                       
 
 
@@ -68,7 +69,19 @@ rotate z*30 //30 grados en z
 
 torus { 1, 0.6 // radio externo y grosor del toro
 translate 1*y //Trasladar 2 unidades en eje Y
-texture{pigment{color Blue transmit .5 }finish{phong .8}} interior {ior 1.0}
-translate <clock, 0, -5>
+texture{pigment{color Green transmit .5 }finish{phong .8}} interior {ior 1.0}
+translate <clock, 0, -5>   
+translate<0,0,6>
 }                                          
-
+     /*
+fog{ fog_type 2
+      distance  5
+      color     White
+      fog_offset -5.5
+      fog_alt    2.0
+      turbulence 1.8
+      up <-0.5,1,0>
+    }//----------------
+ */                   
+ 
+ 
