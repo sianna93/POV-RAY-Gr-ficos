@@ -1,8 +1,10 @@
-// POV-Ray 3.6 Scene File "spline_fly1.pov"
-// created by Friedrich A. Lohmueller, 2003 
-// Demonstrates the Spline_Trans macro of Rune S. Johansen
+//// __ DESARROLLADO ____ ///////////////
+//SIANNA PUENTE
+//ADRIANO PINARGOTE
+//JULIO LARREA
+
 //------------------------------------------------------------------------
-#version 3.6;
+#version 3.7;
 global_settings {  assumed_gamma 1.0 }
 //------------------------------------------------------------------------
 #include "colors.inc"
@@ -34,7 +36,8 @@ sky_sphere{ pigment{ gradient <0,1,0>
                      scale 2 }
            } // end of sky_sphere 
 //------------------------------------------------------------------------   */
-
+ 
+//Referencia: http://www.povray.org/documentation/view/3.7.0/77/
 
 // sky ----------------------------------
 sky_sphere{    
@@ -169,7 +172,10 @@ plane { <0,1,0>, 0    // plane with layered textures
       }
 //------------------------------------------------ end of squered plane XZ*/
 
-/************** Plano Agua ***************************/
+/************** Plano Agua ***************************/ 
+
+//REFERENCIA: http://www.f-lohmueller.de/pov_tut/backgrnd/p_wat1.htm
+
 // fog ---------------------------------------------------------------
 fog{fog_type   2   distance 65  color rgb<1,0.99,0.9>
     fog_offset 0.1 fog_alt  2.0 turbulence 0.2}
@@ -184,7 +190,7 @@ plane{<0,1,0>, 0
              }
      }
 //-----------------------------------
-
+//REFERENCIA: http://www.f-lohmueller.de/pov_tut/animate/anim22e.htm
 //--------------------------------------------------------------------------
 //---------------------------   scenery objects  ---------------------------
 //--------------------------------------------------------------------------
