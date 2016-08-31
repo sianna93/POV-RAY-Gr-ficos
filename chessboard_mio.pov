@@ -67,7 +67,7 @@ texture{pigment{color Red transmit .3 }finish{metallic .5}}
 
 //DEFINIMOS EL TOROIDE
 
-torus { 1, 0.6 // radio externo y grosor del toro
+torus { 2, 0.4 // radio externo y grosor del toro
 translate 1*y //Trasladar 2 unidades en eje Y
 texture{pigment{color Green transmit .5 }finish{phong .8}} interior {ior 1.0}
 translate <clock, 0, -5>   
@@ -85,11 +85,11 @@ fog{ fog_type 2
  */                   
  
 #declare Plastico = finish {
-     // ambient 0.4
-      //diffuse 0.45
-      //reflection 0.15
-      phong 0.8
-      //phong_size 20
+     ambient 0.4
+     diffuse 0.45
+     reflection 0.15
+     phong 0.8
+     phong_size 20
       
 }
 
@@ -119,8 +119,8 @@ fog{ fog_type 2
         normal {
           bump_map {
             gif "botella_norm.gif"
-            map_type 2     // Clindro
-            bump_size 1
+            map_type 3     //2 Clindro, 3 Toroide
+            bump_size 0.5
           }
         }
         scale <15, 15, 15>
