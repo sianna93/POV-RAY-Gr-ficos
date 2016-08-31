@@ -35,33 +35,6 @@ sky_sphere{ pigment{ gradient <0,1,0>
            } // end of sky_sphere 
 //------------------------------------------------------------------------   */
 
-#declare CloudArea = texture {
-    pigment {
-      agate
-      turbulence 1
-      lambda 2
-      frequency 2
-      color_map {
-        [0.0 color rgbf <1, 1, 1, 1>]
-        [0.5 color rgbf <1, 1, 1, .35>]
-        [1.0 color rgbf <1, 1, 1, 1>]
-      }
-    }
-  }
-  
-#declare LandArea = texture {
-      pigment{ gradient <0,1,0>
-              color_map{
-         [0.00 color rgb<0.24,0.32,1> *0.3]
-         [0.23 color rgb<0.16,0.32,0.9> *0.9]
-         [0.37 color rgb<1,0.1,0> ]
-         [0.52 color rgb<1,0.2,0> ]
-         [0.70 color rgb<0.36,0.32,1> *0.7 ]
-         [0.80 color rgb<0.14,0.32,1> *0.5 ]
-         [1.00 color rgb<0.24,0.32,1> *0.3 ]
-                       } // end color_map
-        }
-    }
 
 // sky ----------------------------------
 sky_sphere{    
@@ -264,17 +237,17 @@ plane{<0,1,0>, 0
 
 #declare P2 = array[10];// start with zero!
 
-#declare P2[0] = <-2.70, 1.5, -2.00>; 
-#declare P2[1] = <-2.00, 2.15, -1.80>;
-#declare P2[2] = <-0.50, 2.10, -2.00>;
-#declare P2[3] = < 1.50, 1.60, -2.50>;
-#declare P2[4] = < 2.00, 1.45, -2.00>;
+#declare P2[0] = <-2.70, 2.5, -2.00>; 
+#declare P2[1] = <-2.00, 3.15, -1.80>;
+#declare P2[2] = <-0.50, 3.10, -2.00>;
+#declare P2[3] = < 1.50, 2.60, -2.50>;
+#declare P2[4] = < 2.00, 2.45, -2.00>;
 
-#declare P2[5] = < 4.00, 1.75, -1.00>;
-#declare P2[6] = < 4.00, 3.25,  4.00>;
-#declare P2[7] = < 0.00, 2.15,  4.00>;
-#declare P2[8] = <-4.00, 3.25,  3.50>;
-#declare P2[9]=  <-4.00, 2.00, -1.00>;
+#declare P2[5] = < 4.00, 2.75, -1.00>;
+#declare P2[6] = < 4.00, 4.25,  4.00>;
+#declare P2[7] = < 0.00, 3.15,  4.00>;
+#declare P2[8] = <-4.00, 4.25,  3.50>;
+#declare P2[9]=  <-4.00, 3.00, -1.00>;
           
 #declare Spline_2 =
   spline {
@@ -388,19 +361,21 @@ scale 0.5
 rotate<0,0,0>
 }//----------------------------------------------------------- jet fly ----
 
- /*
 
- #declare Nr = 0;     // start
- #declare EndNr = 20; // end
-// #while (Nr< EndNr) 
+
+#declare Nr_j = 0;     // start
+#declare EndNr_j = 5; // end
+#while (Nr_j< EndNr_j) 
 
 object { Jet scale 1.2
-         Spline_Trans (Spline_2,  mod( (clock+Nr/EndNr) ,1) , y, 0.03, 0.95) }
- //#declare Nr = Nr + 1;  // next Nr
-// #end // --------------- end of loop 
+         Spline_Trans (Spline_2,  mod( (clock+Nr_j/EndNr_j) ,1) , y, 0.03, 0.95) }
+#declare Nr_j = Nr_j + 1;  // next Nr
+#end // --------------- end of loop 
 
 //----------------------------------------------------------------------- end  */  
 
+
+// ---------------CARRITOOOO---------------------------- ///
 #declare piramide_carrito=
 union{
     prism{ 0.00, 1.00, 4,
