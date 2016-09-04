@@ -19,7 +19,7 @@ global_settings {  assumed_gamma 1.0 }
                              location  <6.0 , 6.0 ,-10.0>
                              right     x*image_width/image_height
                              look_at   <0.8 , 2.5 , 0.0> 
-                             rotate   <0,-360*(clock+0.10),0>
+                            // rotate   <0,-360*(clock+0.10),0>
                            }
 camera{Camera_1}
 
