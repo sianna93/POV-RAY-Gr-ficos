@@ -12,6 +12,7 @@ global_settings {  assumed_gamma 1.0 }
 #include "stones.inc"
 
 #include "transforms.inc"
+#include "spline_fly_texturas.inc"
 //------------------------------------------------------------------------
 #declare Camera_1 = camera { 
                              angle 60
@@ -36,59 +37,41 @@ sky_sphere{ pigment{ gradient <0,1,0>
                      scale 2 }
            } // end of sky_sphere 
 //------------------------------------------------------------------------   */
- 
-//Referencia: http://www.povray.org/documentation/view/3.7.0/77/
+
+      
+       
+  
+
+
 
 // sky ----------------------------------
-sky_sphere{    
-    
-    pigment{ gradient <0,1,0>
-              color_map{
-         [0.00 color rgb<0.24,0.32,1> *0.3]
-         [0.23 color rgb<0.16,0.32,0.9> *0.9]
-         [0.37 color rgb<1,0.1,0> ]
-         [0.52 color rgb<1,0.2,0> ]
-         [0.70 color rgb<0.36,0.32,1> *0.7 ]
-         [0.80 color rgb<0.14,0.32,1> *0.5 ]
-         [1.00 color rgb<0.24,0.32,1> *0.3 ]
-                       } // end color_map  */
+sky_sphere{
+    #if(clock<0.4)
         
-     scale 2
-     rotate <-20,0,0>
-     translate <0,0.7,0>
- } // end pigment 
-
-    /* TIPO COLOR MAP NUBES */ 
- pigment {
-      agate
-      turbulence 1
-      lambda 2
-      frequency 0.5
-      color_map {
-        [0.0 color rgbf <1, 1, 1, 1>]
-        [0.5 color rgbf <1, 1, 1, .35>]
-        [1.0 color rgbf <1, 1, 1, 1>]
-      }
+        pigment{cielo_azul}
+        pigment{textura_nubes} 
     
-    scale 2
-     rotate <-20,0,0>
-     translate <0,0.7,0>
-    } // end pigment
-} // end sky_sphere ---------------------
+    #end
+        
+    #if(clock>0.4 & clock <0.7)
+       
+       pigment{textura_atardecer}
+    #end
+    
+    #if(clock >=0.7)
+       
+       pigment{cielo_azul}
+    #end
+ 
+
+ 
+ 
+} // end sky_sphere ---------------------     
+   
 
 
-//////////////// TEXTURA ROCA /////////////////////////
 
-#declare Texture_W =
- texture{ pigment{ color White*0.9}
-          normal { bumps 1 scale 0.0025}
-          finish { diffuse 0.9 specular 1}
-        } // end of texture
-#declare Texture_S =
- texture{ T_Stone10 scale 1
-          normal { agate 0.5 scale 0.025}
-          finish { diffuse 0.9 phong 1 }
-        } // end of texture
+
 
         
 /*
@@ -162,34 +145,36 @@ object{ AxisXYZ( 4.5, 5.4, 6, Texture_A_Dark, Texture_A_Light)}
  #end// of Raster(RScale, HLine)-macro    
 //-------------------------------------------------------------------------
     
-/*
-plane { <0,1,0>, 0    // plane with layered textures
-        texture { pigment{color Blue*1.1}
-                  finish {ambient 0.45 diffuse 0.85}}
-        //texture { Raster(RasterScale,RasterHalfLine ) rotate<0,0,0> }
-        //texture { Raster(RasterScale,RasterHalfLineZ) rotate<0,90,0>}
-        rotate<0,0,0>
-      }
-//------------------------------------------------ end of squered plane XZ*/
 
-/************** Plano Agua ***************************/ 
 
-//REFERENCIA: http://www.f-lohmueller.de/pov_tut/backgrnd/p_wat1.htm
 
-// fog ---------------------------------------------------------------
-fog{fog_type   2   distance 65  color rgb<1,0.99,0.9>
-    fog_offset 0.1 fog_alt  2.0 turbulence 0.2}
-//--------------------------------------------------------------------
+//Se inicializan variables necesarias para el piso
 
-plane{<0,1,0>, 0 
-      texture{pigment{ rgb <0.01, 0.02, 0.2> } 
-              normal { bumps 0.08 scale <1,0.25,0.35>*1 turbulence 0.3 }
-              finish { ambient 0.05 diffuse 0.55 
-                       brilliance 6.0 phong 0.8 phong_size 120
-                       reflection 0.6 }
-             }
-     }
-//-----------------------------------
+
+
+//----------- AGUA AZUL ------------------------ 
+#if (clock<=0.4)
+    #declare piso_fog=piso_fog_agua;
+    #declare piso_plano=piso_plano_blue;
+#end
+
+//------------------AGUA----------------------
+#if (clock>0.4 & clock <0.7)
+    #declare piso_fog=piso_fog_agua;
+    #declare piso_plano=piso_plano_agua;
+#end
+
+// ---------- NIEVE --------------------------
+#if(clock>=0.7)
+    #declare piso_fog=piso_fog_nieve;
+    #declare piso_plano=piso_plano_nieve; 
+#end
+
+//se añade el piso
+fog{piso_fog}
+object{piso_plano}
+      
+
 //REFERENCIA: http://www.f-lohmueller.de/pov_tut/animate/anim22e.htm
 //--------------------------------------------------------------------------
 //---------------------------   scenery objects  ---------------------------
@@ -277,7 +262,7 @@ plane{<0,1,0>, 0
   }
 
 //----------------------------------------------- the spline curve ----------
-
+#declare montaine_rusa=
 union{
  #declare Nr = 0;     // start
  #declare EndNr = 1; // end  
@@ -311,7 +296,7 @@ union{
  
  
  #if(block=0)
- box {< 0.15,0.02,0.15>, <0.01,0.1,0.01>
+    box {< 0.15,0.02,0.15>, <0.01,0.1,0.01>
     texture{ pigment{color rgb <0.317,0.258,0.203>}
 	          finish {ambient 0.15 diffuse 0.85 phong 1}
                 }
@@ -320,7 +305,7 @@ union{
    #declare block=1;
  
  #else
- box {< 0.15,0.02,0.15>, <0.01,0.1,0.01>
+    box {< 0.15,0.02,0.15>, <0.01,0.1,0.01>
     /*texture{ pigment{color rgb <0.745,0.745,0.745>}
 	          finish {ambient 0.15 diffuse 0.85 phong 1}
                 } */
@@ -339,7 +324,9 @@ union{
 
  #declare Nr = Nr + 0.01;  // next Nr
  #end // --------------- end of loop 
-} // end of union  -----------------------------------------------------------    
+} // end of union  -----------------------------------------------------------
+
+object{montaine_rusa}    
 
 //----------------------------------------------------------------------------
 #declare Jet =                 //---------------------------------------------
@@ -366,7 +353,6 @@ sphere { <0,0,0>, 0.15
 scale 0.5
 rotate<0,0,0>
 }//----------------------------------------------------------- jet fly ----
-
 
 
 #declare Nr_j = 0;     // start
@@ -418,13 +404,29 @@ union{
   
 }       
 
- #declare Nr = 0;     // start
- #declare EndNr = 10; // end
-#while (Nr< EndNr) 
+/*
+#declare Nr_c = 0;     // start
+#declare EndNr_c = 10; // end
+#while (Nr_c< EndNr_c) 
+    #if(clock>=0)
+        object { piramide_carrito scale 0.4
+         Spline_Trans (Spline_1,  mod( (clock+Nr_c/EndNr_c) ,1) , y, 0.03, 0.95) }
+    #end
+ #declare Nr_c = Nr_c + 1;  // next Nr 
+
+#end // --------------- end of loop  */
+ 
+
+#declare Nr_c = 0;     // start
+#declare EndNr_c = 5; // end
+#while (Nr_c< EndNr_c) 
 
 object { piramide_carrito scale 0.4
-         Spline_Trans (Spline_1,  mod( (clock+Nr/EndNr) ,1) , y, 0.03, 0.95) }
- #declare Nr = Nr + 1;  // next Nr
- #end // --------------- end of loop 
+         Spline_Trans (Spline_1,  mod( (clock*0.5+Nr_c/EndNr_c) ,1) , y, 0.03, 0.95) }
+#declare Nr_c = Nr_c + 1;  // next Nr
+#end // --------------- end of loop 
+
+//----------------------------------------------------------------------- end  */  
+
 
 //----------------------------------------------------------------------- end  */ 
