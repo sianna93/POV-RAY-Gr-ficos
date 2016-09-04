@@ -46,7 +46,7 @@ plane { <0,1,0> // normal vector
 }
 
 // DEFINIMOS LA ESFERA
-sphere {< 4,0,-1>, 1 texture{pigment{color Blue}finish{ reflection 0.8 }}
+sphere {< 4,0,-1>, 1 texture{pigment{color Blue}finish{ reflection .8 }}
 translate<2,1,6> }           
 
 box {< 1,1,1>, <2,2,2> texture{pigment{color Yellow transmit .8 }finish{phong .2}} interior {ior 5.0}

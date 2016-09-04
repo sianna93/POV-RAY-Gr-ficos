@@ -115,6 +115,7 @@ global_settings {  assumed_gamma 1.0 }
                      normal { bumps 0.75 scale 0.125  }
                      finish { phong 1 }
                    } // end of texture
+          interior {ior 10-clock}
           } // end of plane                                   // end of ground     
 
 
@@ -137,7 +138,9 @@ global_settings {  assumed_gamma 1.0 }
                            brilliance 6.0 phong 0.8 phong_size 120
                            reflection 0.6 }
                  }
-         }
+         } 
+         
+//// ----------- piso de agua azul -------------
 
 #declare piso_plano_blue=
     plane { <0,1,0>, 0    // plane with layered textures
@@ -148,6 +151,34 @@ global_settings {  assumed_gamma 1.0 }
       }
 
 
+
+#declare piso_plano_agua_1=    
+    plane{<0,1,0>, 0 
+          texture{pigment{ rgb <0.01, 0.02, 0.2> } 
+                  normal { bumps 0.08 scale <1,0.25,0.35>*1 turbulence 0.3 }
+                  finish { ambient 0.05 diffuse 0.55 
+                           brilliance 6.0 phong 0.8 phong_size 120
+                           reflection 0.6 }
+                 }
+         interior {ior clock-0.7}
+         }
+
+
+// fog on the ground -------------------------------------------------
+#declare fog_ground=fog { fog_type   2
+      distance   50
+      color      White*0.75
+      fog_offset 0.1
+      fog_alt    1.5
+      turbulence 1.8
+    }                                                    // end of fog
+// ground ------------------------------------------------------------
+#declare ground= plane { <0,1,0>, 0 
+        texture{ pigment{ color rgb<0.35,0.65,0.0>*0.45 }
+                 normal { bumps 0.75 scale 0.015 }
+                 finish { phong 0.1 }
+               } // end of texture
+      } // end of plane                                   // end of ground
 
 ///
 //////////////// TEXTURA ROCA /////////////////////////

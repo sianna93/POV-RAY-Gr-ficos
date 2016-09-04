@@ -5,7 +5,7 @@ global_settings { assumed_gamma 1.2 }
 #include "textures.inc"
 #include "shapes.inc"
 #include "metals.inc"
-#include "glass.inc"
+#include "glass.inc" 
 
 #include "woods.inc" 
 
@@ -67,7 +67,7 @@ texture{pigment{color Red transmit .3 }finish{metallic .5}}
 
 //DEFINIMOS EL TOROIDE
 
-torus { 1, 0.6 // radio externo y grosor del toro
+torus { 2, 0.4 // radio externo y grosor del toro
 translate 1*y //Trasladar 2 unidades en eje Y
 texture{pigment{color Green transmit .5 }finish{phong .8}} interior {ior 1.0}
 translate <clock, 0, -5>   
@@ -84,4 +84,61 @@ fog{ fog_type 2
     }//----------------
  */                   
  
- 
+#declare Plastico = finish {
+     ambient 0.4
+     diffuse 0.45
+     reflection 0.15
+     phong 0.8
+     phong_size 20
+      
+}
+
+#declare BotellaAgua = object {
+  union {
+    intersection {
+      merge {
+        cylinder { < 0, 18.1, 0>
+                   < 0, 20  , 0>  0.9 }
+        cone     { < 0, 14  , 0>  2.9
+                   < 0, 18.1, 0>  0.9 }
+        sphere   { < 0, 12.5, 0>  3.3 }
+        cylinder { < 0,  0  , 0>
+                   < 0, 12  , 0>  3.2 }
+      }
+      merge {
+        cylinder { < 0, 18  , 0>
+                   < 0, 20.1, 0>  0.8 }
+        cone     { < 0, 13.9, 0>  2.8
+                   < 0, 18.0, 0>  0.8 }
+        sphere   { < 0, 12.4, 0>  3.2 }
+        cylinder { < 0,  6  , 0>
+                   < 0, 12.5, 0>  3.1 }
+        inverse
+      }
+      texture { Glass2
+        normal {
+          bump_map {
+            gif "botella_norm.gif"
+            map_type 3     //2 Clindro, 3 Toroide
+            bump_size 0.5
+          }
+        }
+        scale <15, 15, 15>
+      }
+   }
+   cylinder { < 0, 20, 0>
+              < 0, 19, 0> 1.1  // Tapon
+       texture {
+         pigment {Blue}
+         finish { Plastico }
+       }  // fin Tapon
+   }
+  }
+}
+
+object { BotellaAgua
+   
+   scale <0.25,0.25,0.25>
+   translate<4,0,6> 
+   interior {ior 1.6}
+}

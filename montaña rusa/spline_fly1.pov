@@ -18,13 +18,18 @@ global_settings {  assumed_gamma 1.0 }
                              angle 60
                              location  <6.0 , 6.0 ,-10.0>
                              right     x*image_width/image_height
-                             look_at   <0.8 , 2.5 , 0.0>
+                             look_at   <0.8 , 2.5 , 0.0> 
+                             rotate   <0,-360*(clock+0.10),0>
                            }
 camera{Camera_1}
 
+
 //------------------------------------------------------------------------
 // sun -------------------------------------------------------------------
-light_source{<-1000,2500,-2500> color White}
+light_source{<-1000,2500,-2500> color White }        //projected_through {proyectar  }
+
+
+
 
 
 /*// sky -------------------------------------------------------------------
@@ -58,9 +63,16 @@ sky_sphere{
        pigment{textura_atardecer}
     #end
     
-    #if(clock >=0.7)
+    #if(clock >=0.7 & clock <1.2)
        
-       pigment{cielo_azul}
+      //pigment{cielo_azul}
+      pigment{textura_atardecer}
+    #end
+    
+    #if(clock >=1.2)
+       
+      //pigment{cielo_azul}
+      pigment{cielo_azul}
     #end
  
 
@@ -154,25 +166,42 @@ object{ AxisXYZ( 4.5, 5.4, 6, Texture_A_Dark, Texture_A_Light)}
 
 //----------- AGUA AZUL ------------------------ 
 #if (clock<=0.4)
-    #declare piso_fog=piso_fog_agua;
-    #declare piso_plano=piso_plano_blue;
+    
+    //se añade el piso
+    fog{piso_fog_agua}
+    object{piso_plano_blue }
 #end
 
 //------------------AGUA----------------------
 #if (clock>0.4 & clock <0.7)
-    #declare piso_fog=piso_fog_agua;
-    #declare piso_plano=piso_plano_agua;
+   
+    //se añade el piso
+    fog{piso_fog_agua}
+    object{piso_plano_agua}
 #end
 
 // ---------- NIEVE --------------------------
-#if(clock>=0.7)
-    #declare piso_fog=piso_fog_nieve;
-    #declare piso_plano=piso_plano_nieve; 
+#if(clock>=0.7 &clock <1.2)
+    
+   //object{piso_plano_agua no_image}
+    
+   
+    //se añade el piso
+    fog{piso_fog_nieve}
+    object{piso_plano_nieve}
+    //object{piso_plano_agua_1}
+    
 #end
 
-//se añade el piso
-fog{piso_fog}
-object{piso_plano}
+// ---------- Ground --------------------------
+#if(clock>=1.2)    
+   
+    //se añade el piso
+    fog{fog_ground}
+    object{ground}
+    
+#end
+
       
 
 //REFERENCIA: http://www.f-lohmueller.de/pov_tut/animate/anim22e.htm
