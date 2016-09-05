@@ -1,3 +1,11 @@
+   //Proyecto Graficos por computador II PArcial 
+   //Animacion por Pov-Ray
+   //Integrantes: 
+   //Adriano Pinargote
+   //Sianna Puente
+   //Julio LArrea
+   
+   
     #include "colors.inc"
 
     camera
