@@ -126,8 +126,11 @@ global_settings {  assumed_gamma 1.0 }
 
 #declare piso_fog_agua=
     // fog ---------------------------------------------------------------
+    
+    
     fog{fog_type   2   distance 65  color rgb<1,0.99,0.9>
-        fog_offset 0.1 fog_alt  2.0 turbulence 0.2}
+        fog_offset 0.1 fog_alt  2.0 turbulence 0.2} 
+    
     //--------------------------------------------------------------------
 
 #declare piso_plano_agua=    
@@ -154,13 +157,18 @@ global_settings {  assumed_gamma 1.0 }
 
 #declare piso_plano_agua_1=    
     plane{<0,1,0>, 0 
-          texture{pigment{ rgb <0.01, 0.02, 0.2> } 
+          texture{
+          #if (clock>0.4 & clock <0.7)
+          pigment{ rgb <0.01, 0.02, 0.2> }
+          #else pigment{rgbt <1,1,1,1>} #end
+          #if (clock>0.4 & clock <0.7)
                   normal { bumps 0.08 scale <1,0.25,0.35>*1 turbulence 0.3 }
                   finish { ambient 0.05 diffuse 0.55 
                            brilliance 6.0 phong 0.8 phong_size 120
                            reflection 0.6 }
+         #end
                  }
-         interior {ior clock-0.7}
+         
          }
 
 

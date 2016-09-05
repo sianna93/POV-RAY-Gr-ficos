@@ -176,9 +176,9 @@ object{ AxisXYZ( 4.5, 5.4, 6, Texture_A_Dark, Texture_A_Light)}
 #if (clock>0.4 & clock <0.7)
    
     //se añade el piso
-    fog{piso_fog_agua}
-    object{piso_plano_agua}
-#end
+    fog{piso_fog_agua} 
+    object{piso_plano_agua_1}#end
+
 
 // ---------- NIEVE --------------------------
 #if(clock>=0.7 &clock <1.2)
@@ -454,6 +454,7 @@ object { piramide_carrito scale 0.4
          Spline_Trans (Spline_1,  mod( (clock*0.5+Nr_c/EndNr_c) ,1) , y, 0.03, 0.95) }
 #declare Nr_c = Nr_c + 1;  // next Nr
 #end // --------------- end of loop 
+
 
 //----------------------------------------------------------------------- end  */  
 
